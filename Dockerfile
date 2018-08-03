@@ -23,4 +23,5 @@ RUN mkdir -p /usr/src/pgext && \
     ls -alh && \
     pwd && \
     cd pgsql-http && \
+    make && \
     make install
