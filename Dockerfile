@@ -1,7 +1,7 @@
 FROM postgres:alpine
 MAINTAINER Michael Shen <mshen@sparkpad.com>
 
-RUN apk add --no-cache --virtual .build-deps \
+RUN apk update && apk add --no-cache --virtual \
     autoconf \
     automake \
     g++ \
