@@ -1,23 +1,18 @@
-FROM postgres:alpine
-MAINTAINER Michael Shen <mshen@sparkpad.com>
+FROM base/archlinux:latest
 
-RUN apk update && apk add --no-cache \
-    autoconf \
-    automake \
-    g++ \
-    json-c-dev \
-    libtool \
-    libxml2-dev \
-    make \
-    perl \
-    git \
-    ca-certificates \
-    libressl-dev \
-    libssh2-dev \
-    nghttp2-dev \
-    zlib-dev \
-    curl-dev
- 
+RUN pacman -S postgresql curl git base-devel
 RUN mkdir -p /usr/src/pgext
 RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http
 RUN cd /usr/src/pgext/pgsql-http && make install
+
+RUN sudo -u postgres initdb -D '/var/lib/postgres/data'
+RUN pg_ctl -D /var/lib/postgres/ -l logfile start
+
+VOLUME /var/lib/postgresql/data
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 5432
+CMD ["postgres"]
