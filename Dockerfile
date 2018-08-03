@@ -12,9 +12,6 @@ RUN apk add --no-cache --virtual .build-deps \
     perl \
     git \
     ca-certificates \
-    openssl \
-    curl \
-    tar \
     curl-dev \
     openssl-dev
  
