@@ -1,7 +1,7 @@
 FROM postgres:alpine
 MAINTAINER Michael Shen <mshen@sparkpad.com>
 
-RUN apk update && apk add --no-cache --virtual \
+RUN apk update && apk add --no-cache --virtual .build-deps\
     autoconf \
     automake \
     g++ \
@@ -12,8 +12,8 @@ RUN apk update && apk add --no-cache --virtual \
     perl \
     git \
     ca-certificates \
-    curl-dev \
-    openssl-dev
+    openssl-dev \
+    curl-dev 
  
 RUN mkdir -p /usr/src/pgext
 RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http
