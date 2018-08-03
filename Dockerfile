@@ -12,8 +12,8 @@ RUN apk update && apk add --no-cache \
     perl \
     git \
     ca-certificates \
-    openssl-dev \
-    curl-dev 
+    openssl \
+    curl-dev=7.59.0
  
 RUN mkdir -p /usr/src/pgext
 RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http
