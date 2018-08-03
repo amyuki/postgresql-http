@@ -17,11 +17,8 @@ RUN apk add --no-cache --virtual .build-deps \
     tar \
     curl-dev
  
-RUN mkdir -p /usr/src/pgext && \
-    cd /usr/src/pgext && \
-    git clone https://github.com/jessfraz/dockerfiles.git pgsql-http &&\
-    ls -alh && \
-    pwd && \
-    cd pgsql-http && \
-    make && \
-    make install
+RUN mkdir -p /usr/src/pgext
+RUN cd /usr/src/pgext
+RUN git clone https://github.com/pramsey/pgsql-http.git
+RUN cd /usr/src/pgext/pgsql-http
+RUN make install
