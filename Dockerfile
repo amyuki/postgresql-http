@@ -15,7 +15,8 @@ RUN apk add --no-cache --virtual .build-deps \
     openssl \
     curl \
     tar \
-    curl-dev
+    curl-dev \
+    openssl-dev
  
 RUN mkdir -p /usr/src/pgext
 RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http
