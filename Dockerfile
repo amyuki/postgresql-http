@@ -18,7 +18,5 @@ RUN apk add --no-cache --virtual .build-deps \
     curl-dev
  
 RUN mkdir -p /usr/src/pgext
-RUN cd /usr/src/pgext
-RUN git clone https://github.com/pramsey/pgsql-http.git
-RUN cd /usr/src/pgext/pgsql-http
-RUN make install
+RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http
+RUN cd /usr/src/pgext/pgsql-http && make install
