@@ -15,4 +15,4 @@ VOLUME /var/lib/postgresql/data
 #ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 5432
-CMD ["postgres", "-D", "/var/lib/postgresql/data"]
+CMD ["sudo", "-u", "postgres", "postgres", "-D", "/var/lib/postgresql/data"]
