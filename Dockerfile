@@ -15,7 +15,7 @@ RUN apk add --no-cache --virtual .build-deps \
     openssl \
     curl \
     tar \
-    libcurl
+    curl-dev
  
 RUN mkdir -p /usr/src/pgext
 RUN cd /usr/src/pgext
