@@ -6,7 +6,7 @@ RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-htt
 RUN cd /usr/src/pgext/pgsql-http && make install
 
 RUN sudo -u postgres initdb -D '/var/lib/postgres/data'
-RUN pg_ctl -D /var/lib/postgres/ -l logfile start
+
 
 VOLUME /var/lib/postgresql/data
 
