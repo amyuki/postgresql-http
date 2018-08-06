@@ -1,19 +1,13 @@
-FROM base/archlinux:latest
+FROM postgres:latest 
+RUN localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8
+ENV LANG zh_CN.UTF-8
 
-RUN pacman -Sy --noconfirm postgresql curl git base-devel
+RUN apt-get update && apt-get install -y apt-utils git build-essential libtool autoconf ca-certificates libssl-dev postgresql-server-dev-$PG_MAJOR
+
 RUN mkdir -p /usr/src/pgext
-RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http
-RUN cd /usr/src/pgext/pgsql-http && make install
+RUN git clone https://github.com/curl/curl.git /usr/src/pgext/curl && cd /usr/src/pgext/curl/ && ./buildconf && ./configure && make && make install
+RUN git clone https://github.com/pramsey/pgsql-http.git /usr/src/pgext/pgsql-http && cd /usr/src/pgext/pgsql-http && make && make install
 
-RUN sudo -u postgres initdb -D '/var/lib/postgres/data'
-
-
-VOLUME /var/lib/postgres/data
-
-#COPY docker-entrypoint.sh /usr/local/bin/
-#RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
-#ENTRYPOINT ["docker-entrypoint.sh"]
-RUN mkdir /run/postgresql && chmod a+rw -R /run/postgresql
-
-EXPOSE 5432
-CMD ["sudo", "-u", "postgres", "postgres", "-D", "/var/lib/postgres/data"]
+RUN mkdir -p /docker-entrypoint-initdb.d
+ADD create_extensions.sql /docker-entrypoint-initdb.d
+ENV LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH
