@@ -1,10 +1,10 @@
 -- Table: etl_from_couchdb.changes
 
--- DROP TABLE etl_from_couchdb.changes;
+DROP TABLE if exists etl_from_couchdb.changes;
 
-CREATE or REPLACE TABLE etl_from_couchdb.changes
+CREATE TABLE etl_from_couchdb.changes
 (
-    id integer NOT NULL DEFAULT nextval('etl_from_couchdb.changes_id_seq'::regclass),
+    id SERIAL NOT NULL,
     request_seq character varying(2048) COLLATE pg_catalog."default" NOT NULL,
     content jsonb,
     error text COLLATE pg_catalog."default",
@@ -24,5 +24,4 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE etl_from_couchdb.changes
-    OWNER to postgres;
+ALTER TABLE etl_from_couchdb.changes OWNER to postgres;
