@@ -1,6 +1,6 @@
 FROM postgres:latest 
 RUN localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8
-ENV LANG zh_CN.UTF-8
+
 
 RUN apt-get update && apt-get install -y apt-utils git build-essential libtool autoconf ca-certificates libssl-dev postgresql-server-dev-$PG_MAJOR postgresql-$PG_MAJOR-cron
 
